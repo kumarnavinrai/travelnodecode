@@ -36,16 +36,13 @@ module.exports = {
 	_buildAuthString : function() {
 		var credentials = config.formatVersion
 					+ ":" 
-					+ config.decrypt(config.userId)
+					+ config.userId
 					+ ":"
-					+ config.decrypt(config.group)
+					+ config.group
 					+ ":"
-					+ config.decrypt(config.domain);
-		var secret = base64.encode(config.decrypt(config.secret));
+					+ config.domain;
+		var secret = base64.encode(config.secret);
 		return base64.encode(base64.encode(credentials)+":"+secret);
-	},
-	
-	_callAuthentication : function() {
-		
 	}
+	
 };
