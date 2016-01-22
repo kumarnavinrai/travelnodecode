@@ -1,6 +1,6 @@
 //rest.js
 //
-var config = require("./configuration");
+var config = require("./SACSConfig");
 var auth = require("./auth");
 var Client = require('node-rest-client').Client;
 var qs = require('querystring');

@@ -1,5 +1,5 @@
 //auth.js
-var config = require("./configuration");
+var config = require("./SACSConfig");
 var base64 = require("./base64");
 var Client = require('node-rest-client').Client;
 require("datejs");
