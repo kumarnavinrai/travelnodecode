@@ -22,7 +22,7 @@ module.exports = {
 				url = request.directUrl;
 				args.parameters = null;
 			} else {
-				url = config.endpoint + request.service;
+				url = config.environment + request.service;
 			}
 			console.log("\t url: %s", url);
 			new Promise(function(accept, reject) {
@@ -56,7 +56,7 @@ module.exports = {
 				url = request.directUrl;
 				args.parameters = null;
 			} else {
-				url = config.endpoint + request.service;
+				url = config.environment + request.service;
 			}
 			console.log("\t url: %s", url);
 			new Promise(function(accept, reject) {
