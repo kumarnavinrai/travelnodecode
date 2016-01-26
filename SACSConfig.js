@@ -12,9 +12,9 @@ module.exports = {
 	"domain" : "94b001",
 	"secret" : "e9a62cb443e96339", */
 	"userId" : "4atx10hopaikzdfh",
-	"group" : "DEVCENTER"
-	"domain" : "EXT"
-	"secret" : "8Ny4sTiE"
+	"group" : "DEVCENTER",
+	"domain" : "EXT",
+	"secret" : "8Ny4sTiE",
 	"formatVersion" : "V1",
 	
 	encrypt : function(text) {
