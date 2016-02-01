@@ -11,16 +11,12 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "http://git.sabre.com/scm/sws/sabreapicodesamplesnodejs.git"
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"start": "node main.js"
   },
   "keywords": [
     "SACS",
     "NodeJS"
   ],
-  "author": "",
-  "license": "ISC"
+  "author": ""
 }
