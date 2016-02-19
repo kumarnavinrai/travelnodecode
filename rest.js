@@ -8,43 +8,35 @@ var qs = require('querystring');
 module.exports = {
 	get : function(request, response, eventEmitter) {
 		console.log("Rest's GET function: event=%s", request.event);
-		var authString = "";
-		return auth.getAuthString().then(function(authData) {
-			authString = authData;
-		}).then(function() {
-			var args = {
-				headers : {"Authorization":"Bearer " + authString},
-				parameters : request.query
-			};
-			var client = new Client();
-			var url = "";
-			if (request.directUrl !== null) {
-				url = request.directUrl;
-				args.parameters = null;
-			} else {
-				url = config.environment + request.service;
-			}
-			console.log("\t url: %s", url);
-			new Promise(function(accept, reject) {
-				client.get(url, args, function(data, responseData) {
+		return auth.getAuthString()
+			.then(function(authData) {
+				var args = {
+					headers : {"Authorization":"Bearer " + authData},
+					parameters : request.query
+				};
+				var client = new Client();
+				var url = "";
+				if (request.directUrl !== null) {
+					url = request.directUrl;
+					args.parameters = null;
+				} else {
+					url = config.environment + request.service;
+				}
+				console.log("\t url: %s", url);
+				return client.get(url, args, function(data, responseData) {
 					response[request.event] = data;
-					accept(data);
+					console.log("\t going on to event %s", request.nextEvent);
+					eventEmitter.emit(request.nextEvent);
 				});
-			}).then(function(result) {
-				console.log("\t going on to event %s", request.nextEvent);
-				eventEmitter.emit(request.nextEvent);
-			});
 		});
 		
 	},
 	post : function(request, response, eventEmitter) {
 		console.log("Rest's POST function: event=%s", request.event);
-		var authString = "";
-		return auth.getAuthString().then(function(authData) {
-			authString = authData;
-		}).then(function() {
+		return auth.getAuthString()
+			.then(function(authData) {
 			var args = {
-				headers : {Authorization:"Bearer " + authString,
+				headers : {Authorization:"Bearer " + authData,
 					"Content-Type":"application/json",
 					Accept:"*/*"
 				},
@@ -59,12 +51,8 @@ module.exports = {
 				url = config.environment + request.service;
 			}
 			console.log("\t url: %s", url);
-			new Promise(function(accept, reject) {
-				client.post(url, args, function(data, responseData) {
-					response[request.event] = data;
-					accept(data);
-				});
-			}).then(function(result) {
+			return client.post(url, args, function(data, responseData) {
+				response[request.event] = data;
 				console.log("\t going on to event %s", request.nextEvent);
 				eventEmitter.emit(request.nextEvent);
 			});

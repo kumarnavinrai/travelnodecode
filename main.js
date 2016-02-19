@@ -106,10 +106,10 @@ var workflowEnd = function() {
 			FirstItinerary: sharedContext['if'].PricedItineraries[0].AirItinerary.OriginDestinationOptions.OriginDestinationOption[0]
 		},
 		bfm: {
-			FirstItinerary: sharedContext.bfm.OTA_AirLowFareSearchRS.PricedItineraries.PricedItinerary[0]
+			FirstItinerary: sharedContext.bfm //.OTA_AirLowFareSearchRS.PricedItineraries.PricedItinerary[0]
 		}
 	};
-	console.log(JSON.stringify(prettyResult));
+	//console.log(JSON.stringify(prettyResult));
 	response.end(JSON.stringify(prettyResult));
 }
 

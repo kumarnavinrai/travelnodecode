@@ -1,5 +1,5 @@
 //++++++++++++++++++++
-//+ SACSConfig.js +
+//+ SACSConfig.js    +
 //++++++++++++++++++++
 var crypto = require('crypto'),
     algorithm = 'aes-256-ctr',
