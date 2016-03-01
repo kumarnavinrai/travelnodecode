@@ -6,7 +6,7 @@ var crypto = require('crypto'),
     password = 'abcdbzzzzakuku';
 
 module.exports = {
-	"environment" : "https://api-tls.cert.sabre.com",
+	"environment" : "https://api.test.sabre.com",
 	"userId" : "",
 	"group" : "",
 	"domain" : "",
