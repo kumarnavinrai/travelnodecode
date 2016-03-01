@@ -7,14 +7,10 @@ var crypto = require('crypto'),
 
 module.exports = {
 	"environment" : "https://api-tls.cert.sabre.com",
-/*	"userId" : "e58921f8018d62136e2ef414b5ab154d",
-	"group" : "95ad03c375f35e394c",
-	"domain" : "94b001",
-	"secret" : "e9a62cb443e96339", */
-	"userId" : "4atx10hopaikzdfh",
-	"group" : "DEVCENTER",
-	"domain" : "EXT",
-	"secret" : "8Ny4sTiE",
+	"userId" : "",
+	"group" : "",
+	"domain" : "",
+	"secret" : "",
 	"formatVersion" : "V1",
 	
 	encrypt : function(text) {
