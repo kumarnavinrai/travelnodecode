@@ -10,7 +10,7 @@ module.exports = {
 	"userId" : "",
 	"group" : "",
 	"domain" : "",
-	"secret" : "",
+	"clientSecret" : "",
 	"formatVersion" : "V1",
 	
 	encrypt : function(text) {

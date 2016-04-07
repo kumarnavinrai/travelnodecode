@@ -41,7 +41,7 @@ module.exports = {
 					+ config.group
 					+ ":"
 					+ config.domain;
-		var secret = base64.encode(config.secret);
+		var secret = base64.encode(config.clientSecret);
 		return base64.encode(base64.encode(credentials)+":"+secret);
 	}
 	
