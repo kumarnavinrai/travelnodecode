@@ -70,7 +70,7 @@ var bargainFinderMaxActivity = function() {
 		,
 		directUrl : null
 		
-	};
+	}; 
 	rest.post(requestObject, sharedContext, eventEmitter);
 	
 }
@@ -81,7 +81,7 @@ var instaFlightActivity = function() {
 		nextEvent: "bfm",
 		service: "",
 		directUrl: sharedContext["lpc"].FareInfo[0].Links[0].href
-	};
+	}; 
 	rest.get(requestObject, sharedContext, eventEmitter);
 }
 var leadPriceCalendarActivity = function() {
@@ -92,8 +92,32 @@ var leadPriceCalendarActivity = function() {
 		service : "/v2/shop/flights/fares",
 		query : formValue,
 		directUrl : null
-	};
+	}; 
 	rest.get(requestObject, sharedContext, eventEmitter);
+}
+
+var AutoCompleteActivity = function() {
+	console.log("AutoCompleteActivity");
+	var requestObject = {
+		event : "ac",
+		nextEvent : "acend",
+		service : "/v1/lists/utilities/geoservices/autocomplete",
+		query : formValue,
+		directUrl : null
+	}; 
+	rest.get(requestObject, sharedContext, eventEmitter);
+}
+
+var AutoCompleteEnd = function() {
+	var prettyResult = {
+		re: {
+			OriginLocation: sharedContext
+		}
+	};
+	if(prettyResult.re.OriginLocation.ac.Response !== undefined && prettyResult.re.OriginLocation.ac.Response.grouped !== undefined){
+		//console.log(JSON.stringify(prettyResult.re.OriginLocation.ac));
+		response.end(JSON.stringify(prettyResult.re.OriginLocation.ac.Response.grouped["category:AIR"].doclist.docs));
+	}
 }
 var workflowEnd = function() {
 	var prettyResult = {
@@ -117,9 +141,49 @@ eventEmitter.on("lpc", leadPriceCalendarActivity);
 eventEmitter.on("if", instaFlightActivity);
 eventEmitter.on("bfm", bargainFinderMaxActivity);
 eventEmitter.on("end", workflowEnd);
+eventEmitter.on("ac", AutoCompleteActivity);
+eventEmitter.on("acend", AutoCompleteEnd);
 
 app.use(express.static('web'));
-app.post('/*', urlencodedParser, function(req, res) {
+// Add headers
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
+
+
+app.post('/AutoCompleteCity', urlencodedParser, function(req, res) {
+	//console.log(req.query.q);
+	
+	formValue = {
+		query: req.query.q,
+		category: "AIR",
+		limit: 30
+	}
+	eventEmitter.emit("ac");
+	
+	console.log("Autocompelete");
+	response = res;
+	
+});
+
+
+app.post('/fs', urlencodedParser, function(req, res) {
+	console.log(req.body.destination);
 	formValue = {
 		origin: req.body.origin,
 		destination: req.body.destination,
@@ -132,4 +196,5 @@ app.post('/*', urlencodedParser, function(req, res) {
 	response = res;
 	
 });
+
 app.listen(1337, function () {});

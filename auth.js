@@ -19,6 +19,7 @@ module.exports = {
 				client.post(config.environment + "/v2/auth/token", args, function(data) {
 					tokenString = data.access_token;
 					expirationDate = Date.today().setTimeToNow().addSeconds(data.expires_in);
+					console.log("Token aquired; string: "+tokenString);
 					console.log("Token aquired; token's expiration date: "+expirationDate);
 					accept(data.access_token);
 				});

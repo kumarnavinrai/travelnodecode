@@ -23,6 +23,7 @@ module.exports = {
 					url = config.environment + request.service;
 				}
 				console.log("\t url: %s", url);
+				console.log(args);
 				return client.get(url, args, function(data, responseData) {
 					response[request.event] = data;
 					console.log("\t going on to event %s", request.nextEvent);
